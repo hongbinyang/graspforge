@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "graspforge"
+version = "0.1.0"
+description = "Contact-rich parallel-gripper experiments and evaluation in MuJoCo"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "mujoco>=3.1",
+  "numpy>=1.26",
+  "matplotlib>=3.8",
+]
+
+[project.scripts]
+graspforge = "graspforge.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+graspforge = ["assets/*.xml"]
+

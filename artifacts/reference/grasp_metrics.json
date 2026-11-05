@@ -1,0 +1,1925 @@
+{
+  "meta": {
+    "mujoco_version": "3.11.0",
+    "n_trials": 20,
+    "successes": 20,
+    "success_rate": 1.0,
+    "min_successes_required": 18,
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
+    ],
+    "ranges": {
+      "offset_m": [
+        -0.01,
+        0.01
+      ],
+      "yaw_deg": [
+        -5.0,
+        5.0
+      ],
+      "mu": [
+        0.6,
+        1.2
+      ],
+      "dist_mag_N": [
+        2.0,
+        6.0
+      ]
+    },
+    "controller_config": {
+      "settle_time": 0.5,
+      "close_speed": 0.05,
+      "close_timeout": 2.0,
+      "kv_close": 20.0,
+      "contact_threshold": 0.2,
+      "touch_hold_force": 0.5,
+      "contact_confirm_steps": 5,
+      "preload_target": 8.0,
+      "preload_ramp_time": 0.3,
+      "preload_tol": 0.05,
+      "preload_dwell": 0.1,
+      "preload_timeout": 1.5,
+      "kp_force": 0.5,
+      "ki_force": 5.0,
+      "kd_finger": 2.0,
+      "i_max_force": 3.0,
+      "lift_height": 0.15,
+      "lift_time": 1.5,
+      "hold_time": 2.0,
+      "kp_lift": 2000.0,
+      "kd_lift": 100.0,
+      "payload_mass": 0.2,
+      "f_max_safe": 25.0,
+      "pen_max": 0.005,
+      "slip_fail": 0.03
+    },
+    "success_criteria": {
+      "min_rise": 0.12,
+      "max_slip": 0.02,
+      "max_force": 25.0,
+      "max_penetration": 0.005,
+      "contact_force": 0.2
+    }
+  },
+  "trials": [
+    {
+      "trial": {
+        "seed": 0,
+        "offset_x": 0.0027392337464290863,
+        "offset_y": -0.004604265724722594,
+        "yaw_deg": -4.590264760638053,
+        "mu": 0.6099165813171175,
+        "dist_angle": 5.109927617709579,
+        "dist_mag": 5.651022309110887
+      },
+      "report": {
+        "success": true,
+        "criteria": [
+          {
+            "name": "contact_established",
+            "passed": true,
+            "value": 0.9200000000000007,
+            "limit": "both > 0.2 N",
+            "detail": ""
+          },
+          {
+            "name": "reached_done",
+            "passed": true,
+            "value": 5.0,
+            "limit": "final phase DONE",
+            "detail": "DONE: hold complete"
+          },
+          {
+            "name": "rise",
+            "passed": true,
+            "value": 0.14946769242434893,
+            "limit": "\u2265 0.12 m",
+            "detail": ""
+          },
+          {
+            "name": "lifted_throughout_hold",
+            "passed": true,
+            "value": 0.14893867865864724,
+            "limit": "\u2265 0.12 m in HOLD",
+            "detail": ""
+          },
+          {
+            "name": "slip",
+            "passed": true,
+            "value": 0.001137093879324726,
+            "limit": "< 0.02 m",
+            "detail": ""
+          },
+          {
+            "name": "fingertip_force",
+            "passed": true,
+            "value": 15.048250852458821,
+            "limit": "< 25.0 N",
+            "detail": ""
+          },
+          {
+            "name": "penetration",
+            "passed": true,
+            "value": 0.0009466202277028256,
+            "limit": "< 0.005 m",
+            "detail": ""
+          },
+          {
+            "name": "finite",
+            "passed": true,
+            "value": 0.0,
+            "limit": "0 non-finite columns",
+            "detail": ""
+          },
+          {
+            "name": "disturbance_buffer",
+            "passed": true,
+            "value": 0.0,
+            "limit": "0 mismatched rows",
+            "detail": ""
+          }
+        ]
+      },
+      "final_phase": "DONE",
+      "reason": "hold complete",
+      "phase_entry": {
+        "SETTLE": 0.0,
+        "CLOSE": 0.5000000000000003,
+        "PRELOAD": 0.9250000000000007,
+        "LIFT": 1.3249999999999649,
+        "HOLD": 2.8259999999998,
+        "DONE": 4.825999999999946
+      },
+      "u_peak": 1.0000000000000004,
+      "u_pred": 0.568869542361343,
+      "slip_hold_end": 0.0011203074459793679
+    },
+    {
+      "trial": {
+        "seed": 1,
+        "offset_x": 0.00023643249400513434,
+        "offset_y": 0.009009273926518705,
+        "yaw_deg": -3.5584038728036624,
+        "mu": 1.1691896682823464,
+        "dist_angle": 1.9592947975887585,
+        "dist_mag": 3.6933057958903026
+      },
+      "report": {
+        "success": true,
+        "criteria": [
+          {
+            "name": "contact_established",
+            "passed": true,
+            "value": 0.8760000000000007,
+            "limit": "both > 0.2 N",
+            "detail": ""
+          },
+          {
+            "name": "reached_done",
+            "passed": true,
+            "value": 5.0,
+            "limit": "final phase DONE",
+            "detail": "DONE: hold complete"
+          },
+          {
+            "name": "rise",
+            "passed": true,
+            "value": 0.149470693861746,
+            "limit": "\u2265 0.12 m",
+            "detail": ""
+          },
+          {
+            "name": "lifted_throughout_hold",
+            "passed": true,
+            "value": 0.14904252194033135,
+            "limit": "\u2265 0.12 m in HOLD",
+            "detail": ""
+          },
+          {
+            "name": "slip",
+            "passed": true,
+            "value": 0.0010382566701374748,
+            "limit": "< 0.02 m",
+            "detail": ""
+          },
+          {
+            "name": "fingertip_force",
+            "passed": true,
+            "value": 11.55701074105236,
+            "limit": "< 25.0 N",
+            "detail": ""
+          },
+          {
+            "name": "penetration",
+            "passed": true,
+            "value": 0.0009383432920922754,
+            "limit": "< 0.005 m",
+            "detail": ""
+          },
+          {
+            "name": "finite",
+            "passed": true,
+            "value": 0.0,
+            "limit": "0 non-finite columns",
+            "detail": ""
+          },
+          {
+            "name": "disturbance_buffer",
+            "passed": true,
+            "value": 0.0,
+            "limit": "0 mismatched rows",
+            "detail": ""
+          }
+        ]
+      },
+      "final_phase": "DONE",
+      "reason": "hold complete",
+      "phase_entry": {
+        "SETTLE": 0.0,
+        "CLOSE": 0.5000000000000003,
+        "PRELOAD": 0.8810000000000007,
+        "LIFT": 1.2809999999999697,
+        "HOLD": 2.7819999999998046,
+        "DONE": 4.781999999999932
+      },
+      "u_peak": 0.8009397935326052,
+      "u_pred": 0.21038703320004778,
+      "slip_hold_end": 0.001020021585464318
+    },
+    {
+      "trial": {
+        "seed": 2,
+        "offset_x": -0.004767757315013672,
+        "offset_y": -0.004030177131717534,
+        "yaw_deg": 3.1422574059428032,
+        "mu": 0.6551495652810582,
+        "dist_angle": 3.770542807578139,
+        "dist_mag": 4.914242107247178
+      },
+      "report": {
+        "success": true,
+        "criteria": [
+          {
+            "name": "contact_established",
+            "passed": true,
+            "value": 0.9720000000000008,
+            "limit": "both > 0.2 N",
+            "detail": ""
+          },
+          {
+            "name": "reached_done",
+            "passed": true,
+            "value": 5.0,
+            "limit": "final phase DONE",
+            "detail": "DONE: hold complete"
+          },
+          {
+            "name": "rise",
+            "passed": true,
+            "value": 0.14949760031035192,
+            "limit": "\u2265 0.12 m",
+            "detail": ""
+          },
+          {
+            "name": "lifted_throughout_hold",
+            "passed": true,
+            "value": 0.1491137371514732,
+            "limit": "\u2265 0.12 m in HOLD",
+            "detail": ""
+          },
+          {
+            "name": "slip",
+            "passed": true,
+            "value": 0.0008482554477722372,
+            "limit": "< 0.02 m",
+            "detail": ""
+          },
+          {
+            "name": "fingertip_force",
+            "passed": true,
+            "value": 19.235359221510926,
+            "limit": "< 25.0 N",
+            "detail": ""
+          },
+          {
+            "name": "penetration",
+            "passed": true,
+            "value": 0.0009198652829111815,
+            "limit": "< 0.005 m",
+            "detail": ""
+          },
+          {
+            "name": "finite",
+            "passed": true,
+            "value": 0.0,
+            "limit": "0 non-finite columns",
+            "detail": ""
+          },
+          {
+            "name": "disturbance_buffer",
+            "passed": true,
+            "value": 0.0,
+            "limit": "0 mismatched rows",
+            "detail": ""
+          }
+        ]
+      },
+      "final_phase": "DONE",
+      "reason": "hold complete",
+      "phase_entry": {
+        "SETTLE": 0.0,
+        "CLOSE": 0.5000000000000003,
+        "PRELOAD": 0.9770000000000008,
+        "LIFT": 1.3769999999999591,
+        "HOLD": 2.877999999999794,
+        "DONE": 4.877999999999964
+      },
+      "u_peak": 0.9166738101852377,
+      "u_pred": 0.33305264050817057,
+      "slip_hold_end": 0.0008299967181075973
+    },
+    {
+      "trial": {
+        "seed": 3,
+        "offset_x": -0.008287016657127513,
+        "offset_y": -0.005263789868078006,
+        "yaw_deg": 3.0127446520639687,
+        "mu": 0.9492972216386206,
+        "dist_angle": 0.5914277019096399,
+        "dist_mag": 3.732507760945895
+      },
+      "report": {
+        "success": true,
+        "criteria": [
+          {
+            "name": "contact_established",
+            "passed": true,
+            "value": 1.0449999999999957,
+            "limit": "both > 0.2 N",
+            "detail": ""
+          },
+          {
+            "name": "reached_done",
+            "passed": true,
+            "value": 5.0,
+            "limit": "final phase DONE",
+            "detail": "DONE: hold complete"
+          },
+          {
+            "name": "rise",
+            "passed": true,
+            "value": 0.1494999839843299,
+            "limit": "\u2265 0.12 m",
+            "detail": ""
+          },
+          {
+            "name": "lifted_throughout_hold",
+            "passed": true,
+            "value": 0.14912245960098675,
+            "limit": "\u2265 0.12 m in HOLD",
+            "detail": ""
+          },
+          {
+            "name": "slip",
+            "passed": true,
+            "value": 0.0008571907177550237,
+            "limit": "< 0.02 m",
+            "detail": ""
+          },
+          {
+            "name": "fingertip_force",
+            "passed": true,
+            "value": 18.933647142668626,
+            "limit": "< 25.0 N",
+            "detail": ""
+          },
+          {
+            "name": "penetration",
+            "passed": true,
+            "value": 0.0009235559355337998,
+            "limit": "< 0.005 m",
+            "detail": ""
+          },
+          {
+            "name": "finite",
+            "passed": true,
+            "value": 0.0,
+            "limit": "0 non-finite columns",
+            "detail": ""
+          },
+          {
+            "name": "disturbance_buffer",
+            "passed": true,
+            "value": 0.0,
+            "limit": "0 mismatched rows",
+            "detail": ""
+          }
+        ]
+      },
+      "final_phase": "DONE",
+      "reason": "hold complete",
+      "phase_entry": {
+        "SETTLE": 0.0,
+        "CLOSE": 0.5000000000000003,
+        "PRELOAD": 1.0499999999999952,
+        "LIFT": 1.449999999999951,
+        "HOLD": 2.950999999999786,
+        "DONE": 4.950999999999988
+      },
+      "u_peak": 0.5204358504977578,
+      "u_pred": 0.18816534251055647,
+      "slip_hold_end": 0.000838970438847827
+    },
+    {
+      "trial": {
+        "seed": 4,
+        "offset_x": 0.008861122111447352,
+        "offset_y": 0.00022655105628723195,
+        "yaw_deg": 4.762437057077041,
+        "mu": 0.6485016143373613,
+        "dist_angle": 3.8161292398210036,
+        "dist_mag": 3.5059463375090902
+      },
+      "report": {
+        "success": true,
+        "criteria": [
+          {
+            "name": "contact_established",
+            "passed": true,
+            "value": 1.033999999999997,
+            "limit": "both > 0.2 N",
+            "detail": ""
+          },
+          {
+            "name": "reached_done",
+            "passed": true,
+            "value": 5.0,
+            "limit": "final phase DONE",
+            "detail": "DONE: hold complete"
+          },
+          {
+            "name": "rise",
+            "passed": true,
+            "value": 0.1495043501222762,
+            "limit": "\u2265 0.12 m",
+            "detail": ""
+          },
+          {
+            "name": "lifted_throughout_hold",
+            "passed": true,
+            "value": 0.14900568689853916,
+            "limit": "\u2265 0.12 m in HOLD",
+            "detail": ""
+          },
+          {
+            "name": "slip",
+            "passed": true,
+            "value": 0.0009528421700618058,
+            "limit": "< 0.02 m",
+            "detail": ""
+          },
+          {
+            "name": "fingertip_force",
+            "passed": true,
+            "value": 18.24451825206028,
+            "limit": "< 25.0 N",
+            "detail": ""
+          },
+          {
+            "name": "penetration",
+            "passed": true,
+            "value": 0.000956264055605473,
+            "limit": "< 0.005 m",
+            "detail": ""
+          },
+          {
+            "name": "finite",
+            "passed": true,
+            "value": 0.0,
+            "limit": "0 non-finite columns",
+            "detail": ""
+          },
+          {
+            "name": "disturbance_buffer",
+            "passed": true,
+            "value": 0.0,
+            "limit": "0 mismatched rows",
+            "detail": ""
+          }
+        ]
+      },
+      "final_phase": "DONE",
+      "reason": "hold complete",
+      "phase_entry": {
+        "SETTLE": 0.0,
+        "CLOSE": 0.5000000000000003,
+        "PRELOAD": 1.0389999999999964,
+        "LIFT": 1.4389999999999523,
+        "HOLD": 2.9399999999997872,
+        "DONE": 4.939999999999984
+      },
+      "u_peak": 1.0000000000000004,
+      "u_pred": 0.2824821606975399,
+      "slip_hold_end": 0.0009346431424136812
+    },
+    {
+      "trial": {
+        "seed": 5,
+        "offset_x": 0.006100058474907604,
+        "offset_y": 0.0061588157947298754,
+        "yaw_deg": 0.15325561042142,
+        "mu": 0.771480828052885,
+        "dist_angle": 0.3388565968102988,
+        "dist_mag": 3.533475523142073
+      },
+      "report": {
+        "success": true,
+        "criteria": [
+          {
+            "name": "contact_established",
+            "passed": true,
+            "value": 1.0219999999999982,
+            "limit": "both > 0.2 N",
+            "detail": ""
+          },
+          {
+            "name": "reached_done",
+            "passed": true,
+            "value": 5.0,
+            "limit": "final phase DONE",
+            "detail": "DONE: hold complete"
+          },
+          {
+            "name": "rise",
+            "passed": true,
+            "value": 0.149607087783804,
+            "limit": "\u2265 0.12 m",
+            "detail": ""
+          },
+          {
+            "name": "lifted_throughout_hold",
+            "passed": true,
+            "value": 0.14923764139811008,
+            "limit": "\u2265 0.12 m in HOLD",
+            "detail": ""
+          },
+          {
+            "name": "slip",
+            "passed": true,
+            "value": 0.0006720891244406854,
+            "limit": "< 0.02 m",
+            "detail": ""
+          },
+          {
+            "name": "fingertip_force",
+            "passed": true,
+            "value": 17.74838730374068,
+            "limit": "< 25.0 N",
+            "detail": ""
+          },
+          {
+            "name": "penetration",
+            "passed": true,
+            "value": 0.0007420875490127738,
+            "limit": "< 0.005 m",
+            "detail": ""
+          },
+          {
+            "name": "finite",
+            "passed": true,
+            "value": 0.0,
+            "limit": "0 non-finite columns",
+            "detail": ""
+          },
+          {
+            "name": "disturbance_buffer",
+            "passed": true,
+            "value": 0.0,
+            "limit": "0 mismatched rows",
+            "detail": ""
+          }
+        ]
+      },
+      "final_phase": "DONE",
+      "reason": "hold complete",
+      "phase_entry": {
+        "SETTLE": 0.0,
+        "CLOSE": 0.5000000000000003,
+        "PRELOAD": 1.0269999999999977,
+        "LIFT": 1.4269999999999536,
+        "HOLD": 2.9279999999997885,
+        "DONE": 4.92799999999998
+      },
+      "u_peak": 0.27863500928385604,
+      "u_pred": 0.18525292055835468,
+      "slip_hold_end": 0.0006531639402337861
+    },
+    {
+      "trial": {
+        "seed": 6,
+        "offset_x": 0.0007632870294388639,
+        "offset_y": -0.0031345826037332313,
+        "yaw_deg": -1.3093276020462175,
+        "mu": 0.8246980593527294,
+        "dist_angle": 6.204299853987697,
+        "dist_mag": 4.531025090428584
+      },
+      "report": {
+        "success": true,
+        "criteria": [
+          {
+            "name": "contact_established",
+            "passed": true,
+            "value": 0.9070000000000007,
+            "limit": "both > 0.2 N",
+            "detail": ""
+          },
+          {
+            "name": "reached_done",
+            "passed": true,
+            "value": 5.0,
+            "limit": "final phase DONE",
+            "detail": "DONE: hold complete"
+          },
+          {
+            "name": "rise",
+            "passed": true,
+            "value": 0.14961301687161516,
+            "limit": "\u2265 0.12 m",
+            "detail": ""
+          },
+          {
+            "name": "lifted_throughout_hold",
+            "passed": true,
+            "value": 0.1492513973597121,
+            "limit": "\u2265 0.12 m in HOLD",
+            "detail": ""
+          },
+          {
+            "name": "slip",
+            "passed": true,
+            "value": 0.0006903709152592802,
+            "limit": "< 0.02 m",
+            "detail": ""
+          },
+          {
+            "name": "fingertip_force",
+            "passed": true,
+            "value": 22.654021748813637,
+            "limit": "< 25.0 N",
+            "detail": ""
+          },
+          {
+            "name": "penetration",
+            "passed": true,
+            "value": 0.0009063890289513188,
+            "limit": "< 0.005 m",
+            "detail": ""
+          },
+          {
+            "name": "finite",
+            "passed": true,
+            "value": 0.0,
+            "limit": "0 non-finite columns",
+            "detail": ""
+          },
+          {
+            "name": "disturbance_buffer",
+            "passed": true,
+            "value": 0.0,
+            "limit": "0 mismatched rows",
+            "detail": ""
+          }
+        ]
+      },
+      "final_phase": "DONE",
+      "reason": "hold complete",
+      "phase_entry": {
+        "SETTLE": 0.0,
+        "CLOSE": 0.5000000000000003,
+        "PRELOAD": 0.9120000000000007,
+        "LIFT": 1.3119999999999663,
+        "HOLD": 2.812999999999801,
+        "DONE": 4.812999999999942
+      },
+      "u_peak": 0.22834774244948977,
+      "u_pred": 0.1511236164486936,
+      "slip_hold_end": 0.0006719131601710735
+    },
+    {
+      "trial": {
+        "seed": 7,
+        "offset_x": 0.0025019093320933395,
+        "offset_y": 0.00794427601939151,
+        "yaw_deg": 2.7568569024519354,
+        "mu": 0.7351243139943551,
+        "dist_angle": 1.8860003910648933,
+        "dist_mag": 5.494213781585048
+      },
+      "report": {
+        "success": true,
+        "criteria": [
+          {
+            "name": "contact_established",
+            "passed": true,
+            "value": 0.9340000000000007,
+            "limit": "both > 0.2 N",
+            "detail": ""
+          },
+          {
+            "name": "reached_done",
+            "passed": true,
+            "value": 5.0,
+            "limit": "final phase DONE",
+            "detail": "DONE: hold complete"
+          },
+          {
+            "name": "rise",
+            "passed": true,
+            "value": 0.14948977294286298,
+            "limit": "\u2265 0.12 m",
+            "detail": ""
+          },
+          {
+            "name": "lifted_throughout_hold",
+            "passed": true,
+            "value": 0.1491059532531503,
+            "limit": "\u2265 0.12 m in HOLD",
+            "detail": ""
+          },
+          {
+            "name": "slip",
+            "passed": true,
+            "value": 0.0009025677531157546,
+            "limit": "< 0.02 m",
+            "detail": ""
+          },
+          {
+            "name": "fingertip_force",
+            "passed": true,
+            "value": 11.605241495625076,
+            "limit": "< 25.0 N",
+            "detail": ""
+          },
+          {
+            "name": "penetration",
+            "passed": true,
+            "value": 0.000930683293522825,
+            "limit": "< 0.005 m",
+            "detail": ""
+          },
+          {
+            "name": "finite",
+            "passed": true,
+            "value": 0.0,
+            "limit": "0 non-finite columns",
+            "detail": ""
+          },
+          {
+            "name": "disturbance_buffer",
+            "passed": true,
+            "value": 0.0,
+            "limit": "0 mismatched rows",
+            "detail": ""
+          }
+        ]
+      },
+      "final_phase": "DONE",
+      "reason": "hold complete",
+      "phase_entry": {
+        "SETTLE": 0.0,
+        "CLOSE": 0.5000000000000003,
+        "PRELOAD": 0.9390000000000007,
+        "LIFT": 1.3389999999999633,
+        "HOLD": 2.8399999999997982,
+        "DONE": 4.839999999999951
+      },
+      "u_peak": 0.7873281896355964,
+      "u_pred": 0.47415824586329247,
+      "slip_hold_end": 0.0008843441557793652
+    },
+    {
+      "trial": {
+        "seed": 8,
+        "offset_x": -0.0034605544678887857,
+        "offset_y": 0.009745536866758511,
+        "yaw_deg": -1.8128916151448327,
+        "mu": 1.0731293614920174,
+        "dist_angle": 5.46572098105644,
+        "dist_mag": 3.564339226156776
+      },
+      "report": {
+        "success": true,
+        "criteria": [
+          {
+            "name": "contact_established",
+            "passed": true,
+            "value": 0.9610000000000007,
+            "limit": "both > 0.2 N",
+            "detail": ""
+          },
+          {
+            "name": "reached_done",
+            "passed": true,
+            "value": 5.0,
+            "limit": "final phase DONE",
+            "detail": "DONE: hold complete"
+          },
+          {
+            "name": "rise",
+            "passed": true,
+            "value": 0.14954891603248371,
+            "limit": "\u2265 0.12 m",
+            "detail": ""
+          },
+          {
+            "name": "lifted_throughout_hold",
+            "passed": true,
+            "value": 0.14916063539233942,
+            "limit": "\u2265 0.12 m in HOLD",
+            "detail": ""
+          },
+          {
+            "name": "slip",
+            "passed": true,
+            "value": 0.0008266150081729359,
+            "limit": "< 0.02 m",
+            "detail": ""
+          },
+          {
+            "name": "fingertip_force",
+            "passed": true,
+            "value": 17.257876017933384,
+            "limit": "< 25.0 N",
+            "detail": ""
+          },
+          {
+            "name": "penetration",
+            "passed": true,
+            "value": 0.0009219410148703052,
+            "limit": "< 0.005 m",
+            "detail": ""
+          },
+          {
+            "name": "finite",
+            "passed": true,
+            "value": 0.0,
+            "limit": "0 non-finite columns",
+            "detail": ""
+          },
+          {
+            "name": "disturbance_buffer",
+            "passed": true,
+            "value": 0.0,
+            "limit": "0 mismatched rows",
+            "detail": ""
+          }
+        ]
+      },
+      "final_phase": "DONE",
+      "reason": "hold complete",
+      "phase_entry": {
+        "SETTLE": 0.0,
+        "CLOSE": 0.5000000000000003,
+        "PRELOAD": 0.9660000000000007,
+        "LIFT": 1.3659999999999604,
+        "HOLD": 2.8669999999997953,
+        "DONE": 4.86699999999996
+      },
+      "u_peak": 0.31210101209566915,
+      "u_pred": 0.18966852728652722,
+      "slip_hold_end": 0.0008077649101861122
+    },
+    {
+      "trial": {
+        "seed": 9,
+        "offset_x": 0.007404984079401693,
+        "offset_y": -0.004263655818248893,
+        "yaw_deg": 1.0314815005156186,
+        "mu": 1.0665204497521072,
+        "dist_angle": 4.499229591569185,
+        "dist_mag": 5.661520481962031
+      },
+      "report": {
+        "success": true,
+        "criteria": [
+          {
+            "name": "contact_established",
+            "passed": true,
+            "value": 1.0389999999999964,
+            "limit": "both > 0.2 N",
+            "detail": ""
+          },
+          {
+            "name": "reached_done",
+            "passed": true,
+            "value": 5.0,
+            "limit": "final phase DONE",
+            "detail": "DONE: hold complete"
+          },
+          {
+            "name": "rise",
+            "passed": true,
+            "value": 0.14961562209603435,
+            "limit": "\u2265 0.12 m",
+            "detail": ""
+          },
+          {
+            "name": "lifted_throughout_hold",
+            "passed": true,
+            "value": 0.1492507906370077,
+            "limit": "\u2265 0.12 m in HOLD",
+            "detail": ""
+          },
+          {
+            "name": "slip",
+            "passed": true,
+            "value": 0.0006793039185548934,
+            "limit": "< 0.02 m",
+            "detail": ""
+          },
+          {
+            "name": "fingertip_force",
+            "passed": true,
+            "value": 9.358917725393315,
+            "limit": "< 25.0 N",
+            "detail": ""
+          },
+          {
+            "name": "penetration",
+            "passed": true,
+            "value": 0.0008729734596858382,
+            "limit": "< 0.005 m",
+            "detail": ""
+          },
+          {
+            "name": "finite",
+            "passed": true,
+            "value": 0.0,
+            "limit": "0 non-finite columns",
+            "detail": ""
+          },
+          {
+            "name": "disturbance_buffer",
+            "passed": true,
+            "value": 0.0,
+            "limit": "0 mismatched rows",
+            "detail": ""
+          }
+        ]
+      },
+      "final_phase": "DONE",
+      "reason": "hold complete",
+      "phase_entry": {
+        "SETTLE": 0.0,
+        "CLOSE": 0.5000000000000003,
+        "PRELOAD": 1.0439999999999958,
+        "LIFT": 1.4439999999999518,
+        "HOLD": 2.9449999999997867,
+        "DONE": 4.944999999999986
+      },
+      "u_peak": 0.41900331092489845,
+      "u_pred": 0.34403179366173275,
+      "slip_hold_end": 0.0006607937741334483
+    },
+    {
+      "trial": {
+        "seed": 10,
+        "offset_x": 0.009120034192579507,
+        "offset_y": -0.005846363798417063,
+        "yaw_deg": 3.2844488527453075,
+        "mu": 0.6895692738492122,
+        "dist_angle": 3.2220464314480877,
+        "dist_mag": 2.5436784160820265
+      },
+      "report": {
+        "success": true,
+        "criteria": [
+          {
+            "name": "contact_established",
+            "passed": true,
+            "value": 1.0469999999999955,
+            "limit": "both > 0.2 N",
+            "detail": ""
+          },
+          {
+            "name": "reached_done",
+            "passed": true,
+            "value": 5.0,
+            "limit": "final phase DONE",
+            "detail": "DONE: hold complete"
+          },
+          {
+            "name": "rise",
+            "passed": true,
+            "value": 0.14948898677369354,
+            "limit": "\u2265 0.12 m",
+            "detail": ""
+          },
+          {
+            "name": "lifted_throughout_hold",
+            "passed": true,
+            "value": 0.14909162544691884,
+            "limit": "\u2265 0.12 m in HOLD",
+            "detail": ""
+          },
+          {
+            "name": "slip",
+            "passed": true,
+            "value": 0.0008997521789464491,
+            "limit": "< 0.02 m",
+            "detail": ""
+          },
+          {
+            "name": "fingertip_force",
+            "passed": true,
+            "value": 17.597695450043272,
+            "limit": "< 25.0 N",
+            "detail": ""
+          },
+          {
+            "name": "penetration",
+            "passed": true,
+            "value": 0.0009265451885748002,
+            "limit": "< 0.005 m",
+            "detail": ""
+          },
+          {
+            "name": "finite",
+            "passed": true,
+            "value": 0.0,
+            "limit": "0 non-finite columns",
+            "detail": ""
+          },
+          {
+            "name": "disturbance_buffer",
+            "passed": true,
+            "value": 0.0,
+            "limit": "0 mismatched rows",
+            "detail": ""
+          }
+        ]
+      },
+      "final_phase": "DONE",
+      "reason": "hold complete",
+      "phase_entry": {
+        "SETTLE": 0.0,
+        "CLOSE": 0.5000000000000003,
+        "PRELOAD": 1.051999999999995,
+        "LIFT": 1.4519999999999509,
+        "HOLD": 2.952999999999786,
+        "DONE": 4.952999999999989
+      },
+      "u_peak": 0.6175480381924532,
+      "u_pred": 0.1786242537859749,
+      "slip_hold_end": 0.0008815802631780187
+    },
+    {
+      "trial": {
+        "seed": 11,
+        "offset_x": -0.0074285959446160075,
+        "offset_y": -1.4442751197700776e-05,
+        "yaw_deg": 1.0149835762335746,
+        "mu": 0.6172134050231667,
+        "dist_angle": 0.9294470011656759,
+        "dist_mag": 5.712844091841478
+      },
+      "report": {
+        "success": true,
+        "criteria": [
+          {
+            "name": "contact_established",
+            "passed": true,
+            "value": 1.0409999999999962,
+            "limit": "both > 0.2 N",
+            "detail": ""
+          },
+          {
+            "name": "reached_done",
+            "passed": true,
+            "value": 5.0,
+            "limit": "final phase DONE",
+            "detail": "DONE: hold complete"
+          },
+          {
+            "name": "rise",
+            "passed": true,
+            "value": 0.14961556530741854,
+            "limit": "\u2265 0.12 m",
+            "detail": ""
+          },
+          {
+            "name": "lifted_throughout_hold",
+            "passed": true,
+            "value": 0.1492568391286822,
+            "limit": "\u2265 0.12 m in HOLD",
+            "detail": ""
+          },
+          {
+            "name": "slip",
+            "passed": true,
+            "value": 0.0006702948682232742,
+            "limit": "< 0.02 m",
+            "detail": ""
+          },
+          {
+            "name": "fingertip_force",
+            "passed": true,
+            "value": 19.74202218447946,
+            "limit": "< 25.0 N",
+            "detail": ""
+          },
+          {
+            "name": "penetration",
+            "passed": true,
+            "value": 0.000857292489081194,
+            "limit": "< 0.005 m",
+            "detail": ""
+          },
+          {
+            "name": "finite",
+            "passed": true,
+            "value": 0.0,
+            "limit": "0 non-finite columns",
+            "detail": ""
+          },
+          {
+            "name": "disturbance_buffer",
+            "passed": true,
+            "value": 0.0,
+            "limit": "0 mismatched rows",
+            "detail": ""
+          }
+        ]
+      },
+      "final_phase": "DONE",
+      "reason": "hold complete",
+      "phase_entry": {
+        "SETTLE": 0.0,
+        "CLOSE": 0.5000000000000003,
+        "PRELOAD": 1.0459999999999956,
+        "LIFT": 1.4459999999999515,
+        "HOLD": 2.9469999999997865,
+        "DONE": 4.946999999999987
+      },
+      "u_peak": 0.6803223502278253,
+      "u_pred": 0.5043049733616003,
+      "slip_hold_end": 0.0006519653443153902
+    },
+    {
+      "trial": {
+        "seed": 12,
+        "offset_x": -0.004983510837831078,
+        "offset_y": 0.008935058857188491,
+        "yaw_deg": -3.106796154602387,
+        "mu": 0.7075748462508645,
+        "dist_angle": 2.1984189356527435,
+        "dist_mag": 2.9221649863596237
+      },
+      "report": {
+        "success": true,
+        "criteria": [
+          {
+            "name": "contact_established",
+            "passed": true,
+            "value": 0.9820000000000008,
+            "limit": "both > 0.2 N",
+            "detail": ""
+          },
+          {
+            "name": "reached_done",
+            "passed": true,
+            "value": 5.0,
+            "limit": "final phase DONE",
+            "detail": "DONE: hold complete"
+          },
+          {
+            "name": "rise",
+            "passed": true,
+            "value": 0.14946913966232983,
+            "limit": "\u2265 0.12 m",
+            "detail": ""
+          },
+          {
+            "name": "lifted_throughout_hold",
+            "passed": true,
+            "value": 0.14906653844137413,
+            "limit": "\u2265 0.12 m in HOLD",
+            "detail": ""
+          },
+          {
+            "name": "slip",
+            "passed": true,
+            "value": 0.0009762934226768419,
+            "limit": "< 0.02 m",
+            "detail": ""
+          },
+          {
+            "name": "fingertip_force",
+            "passed": true,
+            "value": 13.790826803636213,
+            "limit": "< 25.0 N",
+            "detail": ""
+          },
+          {
+            "name": "penetration",
+            "passed": true,
+            "value": 0.0009357186048464955,
+            "limit": "< 0.005 m",
+            "detail": ""
+          },
+          {
+            "name": "finite",
+            "passed": true,
+            "value": 0.0,
+            "limit": "0 non-finite columns",
+            "detail": ""
+          },
+          {
+            "name": "disturbance_buffer",
+            "passed": true,
+            "value": 0.0,
+            "limit": "0 mismatched rows",
+            "detail": ""
+          }
+        ]
+      },
+      "final_phase": "DONE",
+      "reason": "hold complete",
+      "phase_entry": {
+        "SETTLE": 0.0,
+        "CLOSE": 0.5000000000000003,
+        "PRELOAD": 0.9870000000000008,
+        "LIFT": 1.386999999999958,
+        "HOLD": 2.887999999999793,
+        "DONE": 4.887999999999967
+      },
+      "u_peak": 0.7652932689115692,
+      "u_pred": 0.2712394515944734,
+      "slip_hold_end": 0.000958145222115906
+    },
+    {
+      "trial": {
+        "seed": 13,
+        "offset_x": 0.00729595174033173,
+        "offset_y": 0.00710605029864118,
+        "yaw_deg": 3.1102339878434213,
+        "mu": 0.7568678168498859,
+        "dist_angle": 0.4850584984586171,
+        "dist_mag": 5.785863121784253
+      },
+      "report": {
+        "success": true,
+        "criteria": [
+          {
+            "name": "contact_established",
+            "passed": true,
+            "value": 1.0259999999999978,
+            "limit": "both > 0.2 N",
+            "detail": ""
+          },
+          {
+            "name": "reached_done",
+            "passed": true,
+            "value": 5.0,
+            "limit": "final phase DONE",
+            "detail": "DONE: hold complete"
+          },
+          {
+            "name": "rise",
+            "passed": true,
+            "value": 0.14948407763106558,
+            "limit": "\u2265 0.12 m",
+            "detail": ""
+          },
+          {
+            "name": "lifted_throughout_hold",
+            "passed": true,
+            "value": 0.14909312747604325,
+            "limit": "\u2265 0.12 m in HOLD",
+            "detail": ""
+          },
+          {
+            "name": "slip",
+            "passed": true,
+            "value": 0.0009163021804652086,
+            "limit": "< 0.02 m",
+            "detail": ""
+          },
+          {
+            "name": "fingertip_force",
+            "passed": true,
+            "value": 20.592146621137104,
+            "limit": "< 25.0 N",
+            "detail": ""
+          },
+          {
+            "name": "penetration",
+            "passed": true,
+            "value": 0.0009297583448208508,
+            "limit": "< 0.005 m",
+            "detail": ""
+          },
+          {
+            "name": "finite",
+            "passed": true,
+            "value": 0.0,
+            "limit": "0 non-finite columns",
+            "detail": ""
+          },
+          {
+            "name": "disturbance_buffer",
+            "passed": true,
+            "value": 0.0,
+            "limit": "0 mismatched rows",
+            "detail": ""
+          }
+        ]
+      },
+      "final_phase": "DONE",
+      "reason": "hold complete",
+      "phase_entry": {
+        "SETTLE": 0.0,
+        "CLOSE": 0.5000000000000003,
+        "PRELOAD": 1.0309999999999973,
+        "LIFT": 1.4309999999999532,
+        "HOLD": 2.931999999999788,
+        "DONE": 4.931999999999982
+      },
+      "u_peak": 0.8548656704752677,
+      "u_pred": 0.2752409225890492,
+      "slip_hold_end": 0.0008981706102450689
+    },
+    {
+      "trial": {
+        "seed": 14,
+        "offset_x": 0.00661966637778223,
+        "offset_y": -0.0027810666633148683,
+        "yaw_deg": 2.027393055820549,
+        "mu": 1.1160712719915566,
+        "dist_angle": 4.029516572525623,
+        "dist_mag": 4.193452835253256
+      },
+      "report": {
+        "success": true,
+        "criteria": [
+          {
+            "name": "contact_established",
+            "passed": true,
+            "value": 1.0129999999999992,
+            "limit": "both > 0.2 N",
+            "detail": ""
+          },
+          {
+            "name": "reached_done",
+            "passed": true,
+            "value": 5.0,
+            "limit": "final phase DONE",
+            "detail": "DONE: hold complete"
+          },
+          {
+            "name": "rise",
+            "passed": true,
+            "value": 0.14956770966116723,
+            "limit": "\u2265 0.12 m",
+            "detail": ""
+          },
+          {
+            "name": "lifted_throughout_hold",
+            "passed": true,
+            "value": 0.14920459796266777,
+            "limit": "\u2265 0.12 m in HOLD",
+            "detail": ""
+          },
+          {
+            "name": "slip",
+            "passed": true,
+            "value": 0.0007414336108573763,
+            "limit": "< 0.02 m",
+            "detail": ""
+          },
+          {
+            "name": "fingertip_force",
+            "passed": true,
+            "value": 17.408865284559564,
+            "limit": "< 25.0 N",
+            "detail": ""
+          },
+          {
+            "name": "penetration",
+            "passed": true,
+            "value": 0.0009131095313182266,
+            "limit": "< 0.005 m",
+            "detail": ""
+          },
+          {
+            "name": "finite",
+            "passed": true,
+            "value": 0.0,
+            "limit": "0 non-finite columns",
+            "detail": ""
+          },
+          {
+            "name": "disturbance_buffer",
+            "passed": true,
+            "value": 0.0,
+            "limit": "0 mismatched rows",
+            "detail": ""
+          }
+        ]
+      },
+      "final_phase": "DONE",
+      "reason": "hold complete",
+      "phase_entry": {
+        "SETTLE": 0.0,
+        "CLOSE": 0.5000000000000003,
+        "PRELOAD": 1.0179999999999987,
+        "LIFT": 1.4179999999999546,
+        "HOLD": 2.9189999999997895,
+        "DONE": 4.918999999999977
+      },
+      "u_peak": 0.3541403136714358,
+      "u_pred": 0.21269813537439083,
+      "slip_hold_end": 0.0007230715586858995
+    },
+    {
+      "trial": {
+        "seed": 15,
+        "offset_x": 0.003854867359303047,
+        "offset_y": 0.0063163422267211505,
+        "yaw_deg": -1.5559324220714332,
+        "mu": 0.6269029054142513,
+        "dist_angle": 3.591451487018492,
+        "dist_mag": 2.58498170689439
+      },
+      "report": {
+        "success": true,
+        "criteria": [
+          {
+            "name": "contact_established",
+            "passed": true,
+            "value": 0.9610000000000007,
+            "limit": "both > 0.2 N",
+            "detail": ""
+          },
+          {
+            "name": "reached_done",
+            "passed": true,
+            "value": 5.0,
+            "limit": "final phase DONE",
+            "detail": "DONE: hold complete"
+          },
+          {
+            "name": "rise",
+            "passed": true,
+            "value": 0.14957748984315883,
+            "limit": "\u2265 0.12 m",
+            "detail": ""
+          },
+          {
+            "name": "lifted_throughout_hold",
+            "passed": true,
+            "value": 0.14920621927909655,
+            "limit": "\u2265 0.12 m in HOLD",
+            "detail": ""
+          },
+          {
+            "name": "slip",
+            "passed": true,
+            "value": 0.000743877018999689,
+            "limit": "< 0.02 m",
+            "detail": ""
+          },
+          {
+            "name": "fingertip_force",
+            "passed": true,
+            "value": 16.31943027156925,
+            "limit": "< 25.0 N",
+            "detail": ""
+          },
+          {
+            "name": "penetration",
+            "passed": true,
+            "value": 0.0009116919155998203,
+            "limit": "< 0.005 m",
+            "detail": ""
+          },
+          {
+            "name": "finite",
+            "passed": true,
+            "value": 0.0,
+            "limit": "0 non-finite columns",
+            "detail": ""
+          },
+          {
+            "name": "disturbance_buffer",
+            "passed": true,
+            "value": 0.0,
+            "limit": "0 mismatched rows",
+            "detail": ""
+          }
+        ]
+      },
+      "final_phase": "DONE",
+      "reason": "hold complete",
+      "phase_entry": {
+        "SETTLE": 0.0,
+        "CLOSE": 0.5000000000000003,
+        "PRELOAD": 0.9660000000000007,
+        "LIFT": 1.3659999999999604,
+        "HOLD": 2.8669999999997953,
+        "DONE": 4.86699999999996
+      },
+      "u_peak": 0.3185317935465347,
+      "u_pred": 0.22541313942474464,
+      "slip_hold_end": 0.0007252250847452552
+    },
+    {
+      "trial": {
+        "seed": 16,
+        "offset_x": 0.0013383367775873013,
+        "offset_y": -0.0013851170901962883,
+        "yaw_deg": -4.059261745384754,
+        "mu": 0.8088477302615973,
+        "dist_angle": 3.9050564582327985,
+        "dist_mag": 2.086620012730842
+      },
+      "report": {
+        "success": true,
+        "criteria": [
+          {
+            "name": "contact_established",
+            "passed": true,
+            "value": 0.8920000000000007,
+            "limit": "both > 0.2 N",
+            "detail": ""
+          },
+          {
+            "name": "reached_done",
+            "passed": true,
+            "value": 5.0,
+            "limit": "final phase DONE",
+            "detail": "DONE: hold complete"
+          },
+          {
+            "name": "rise",
+            "passed": true,
+            "value": 0.1495062471409701,
+            "limit": "\u2265 0.12 m",
+            "detail": ""
+          },
+          {
+            "name": "lifted_throughout_hold",
+            "passed": true,
+            "value": 0.14907062379811992,
+            "limit": "\u2265 0.12 m in HOLD",
+            "detail": ""
+          },
+          {
+            "name": "slip",
+            "passed": true,
+            "value": 0.0008756797262437988,
+            "limit": "< 0.02 m",
+            "detail": ""
+          },
+          {
+            "name": "fingertip_force",
+            "passed": true,
+            "value": 11.222917808707454,
+            "limit": "< 25.0 N",
+            "detail": ""
+          },
+          {
+            "name": "penetration",
+            "passed": true,
+            "value": 0.0009121144062909486,
+            "limit": "< 0.005 m",
+            "detail": ""
+          },
+          {
+            "name": "finite",
+            "passed": true,
+            "value": 0.0,
+            "limit": "0 non-finite columns",
+            "detail": ""
+          },
+          {
+            "name": "disturbance_buffer",
+            "passed": true,
+            "value": 0.0,
+            "limit": "0 mismatched rows",
+            "detail": ""
+          }
+        ]
+      },
+      "final_phase": "DONE",
+      "reason": "hold complete",
+      "phase_entry": {
+        "SETTLE": 0.0,
+        "CLOSE": 0.5000000000000003,
+        "PRELOAD": 0.8970000000000007,
+        "LIFT": 1.296999999999968,
+        "HOLD": 2.797999999999803,
+        "DONE": 4.797999999999937
+      },
+      "u_peak": 1.0000000000000004,
+      "u_pred": 0.1877864528946548,
+      "slip_hold_end": 0.0008572068014122603
+    },
+    {
+      "trial": {
+        "seed": 17,
+        "offset_x": 0.006901495855958031,
+        "offset_y": -0.006780538176617861,
+        "yaw_deg": 0.5774454736569212,
+        "mu": 0.8208479649985627,
+        "dist_angle": 1.3505201873476333,
+        "dist_mag": 3.543296150356794
+      },
+      "report": {
+        "success": true,
+        "criteria": [
+          {
+            "name": "contact_established",
+            "passed": true,
+            "value": 1.032999999999997,
+            "limit": "both > 0.2 N",
+            "detail": ""
+          },
+          {
+            "name": "reached_done",
+            "passed": true,
+            "value": 5.0,
+            "limit": "final phase DONE",
+            "detail": "DONE: hold complete"
+          },
+          {
+            "name": "rise",
+            "passed": true,
+            "value": 0.14960656647595433,
+            "limit": "\u2265 0.12 m",
+            "detail": ""
+          },
+          {
+            "name": "lifted_throughout_hold",
+            "passed": true,
+            "value": 0.149233673554432,
+            "limit": "\u2265 0.12 m in HOLD",
+            "detail": ""
+          },
+          {
+            "name": "slip",
+            "passed": true,
+            "value": 0.0006834149699497427,
+            "limit": "< 0.02 m",
+            "detail": ""
+          },
+          {
+            "name": "fingertip_force",
+            "passed": true,
+            "value": 9.112432606011481,
+            "limit": "< 25.0 N",
+            "detail": ""
+          },
+          {
+            "name": "penetration",
+            "passed": true,
+            "value": 0.0007878022208314515,
+            "limit": "< 0.005 m",
+            "detail": ""
+          },
+          {
+            "name": "finite",
+            "passed": true,
+            "value": 0.0,
+            "limit": "0 non-finite columns",
+            "detail": ""
+          },
+          {
+            "name": "disturbance_buffer",
+            "passed": true,
+            "value": 0.0,
+            "limit": "0 mismatched rows",
+            "detail": ""
+          }
+        ]
+      },
+      "final_phase": "DONE",
+      "reason": "hold complete",
+      "phase_entry": {
+        "SETTLE": 0.0,
+        "CLOSE": 0.5000000000000003,
+        "PRELOAD": 1.0379999999999965,
+        "LIFT": 1.4379999999999524,
+        "HOLD": 2.9389999999997873,
+        "DONE": 4.938999999999984
+      },
+      "u_peak": 0.3679898788872894,
+      "u_pred": 0.3026974433395591,
+      "slip_hold_end": 0.0006644534120797012
+    },
+    {
+      "trial": {
+        "seed": 18,
+        "offset_x": -0.002013884615648545,
+        "offset_y": 0.004348293585764322,
+        "yaw_deg": -2.1917667196399657,
+        "mu": 0.6496349507988698,
+        "dist_angle": 6.09325290470506,
+        "dist_mag": 4.255706981471809
+      },
+      "report": {
+        "success": true,
+        "criteria": [
+          {
+            "name": "contact_established",
+            "passed": true,
+            "value": 0.9250000000000007,
+            "limit": "both > 0.2 N",
+            "detail": ""
+          },
+          {
+            "name": "reached_done",
+            "passed": true,
+            "value": 5.0,
+            "limit": "final phase DONE",
+            "detail": "DONE: hold complete"
+          },
+          {
+            "name": "rise",
+            "passed": true,
+            "value": 0.14954155195269242,
+            "limit": "\u2265 0.12 m",
+            "detail": ""
+          },
+          {
+            "name": "lifted_throughout_hold",
+            "passed": true,
+            "value": 0.14917551749682817,
+            "limit": "\u2265 0.12 m in HOLD",
+            "detail": ""
+          },
+          {
+            "name": "slip",
+            "passed": true,
+            "value": 0.0007751665906825848,
+            "limit": "< 0.02 m",
+            "detail": ""
+          },
+          {
+            "name": "fingertip_force",
+            "passed": true,
+            "value": 21.996372111887922,
+            "limit": "< 25.0 N",
+            "detail": ""
+          },
+          {
+            "name": "penetration",
+            "passed": true,
+            "value": 0.0009163956944177692,
+            "limit": "< 0.005 m",
+            "detail": ""
+          },
+          {
+            "name": "finite",
+            "passed": true,
+            "value": 0.0,
+            "limit": "0 non-finite columns",
+            "detail": ""
+          },
+          {
+            "name": "disturbance_buffer",
+            "passed": true,
+            "value": 0.0,
+            "limit": "0 mismatched rows",
+            "detail": ""
+          }
+        ]
+      },
+      "final_phase": "DONE",
+      "reason": "hold complete",
+      "phase_entry": {
+        "SETTLE": 0.0,
+        "CLOSE": 0.5000000000000003,
+        "PRELOAD": 0.9300000000000007,
+        "LIFT": 1.3299999999999643,
+        "HOLD": 2.8309999999997992,
+        "DONE": 4.830999999999948
+      },
+      "u_peak": 0.37796937459111346,
+      "u_pred": 0.20392878519097168,
+      "slip_hold_end": 0.0007567836257731784
+    },
+    {
+      "trial": {
+        "seed": 19,
+        "offset_x": -0.0015924240854147832,
+        "offset_y": 0.008517386896334075,
+        "yaw_deg": -2.261300121017179,
+        "mu": 0.6360291624735159,
+        "dist_angle": 1.9512020945136812,
+        "dist_mag": 4.872741031488308
+      },
+      "report": {
+        "success": true,
+        "criteria": [
+          {
+            "name": "contact_established",
+            "passed": true,
+            "value": 0.9200000000000007,
+            "limit": "both > 0.2 N",
+            "detail": ""
+          },
+          {
+            "name": "reached_done",
+            "passed": true,
+            "value": 5.0,
+            "limit": "final phase DONE",
+            "detail": "DONE: hold complete"
+          },
+          {
+            "name": "rise",
+            "passed": true,
+            "value": 0.14951309716932,
+            "limit": "\u2265 0.12 m",
+            "detail": ""
+          },
+          {
+            "name": "lifted_throughout_hold",
+            "passed": true,
+            "value": 0.1491303970940428,
+            "limit": "\u2265 0.12 m in HOLD",
+            "detail": ""
+          },
+          {
+            "name": "slip",
+            "passed": true,
+            "value": 0.0008601046085207327,
+            "limit": "< 0.02 m",
+            "detail": ""
+          },
+          {
+            "name": "fingertip_force",
+            "passed": true,
+            "value": 14.288593739026958,
+            "limit": "< 25.0 N",
+            "detail": ""
+          },
+          {
+            "name": "penetration",
+            "passed": true,
+            "value": 0.0009272619009868278,
+            "limit": "< 0.005 m",
+            "detail": ""
+          },
+          {
+            "name": "finite",
+            "passed": true,
+            "value": 0.0,
+            "limit": "0 non-finite columns",
+            "detail": ""
+          },
+          {
+            "name": "disturbance_buffer",
+            "passed": true,
+            "value": 0.0,
+            "limit": "0 mismatched rows",
+            "detail": ""
+          }
+        ]
+      },
+      "final_phase": "DONE",
+      "reason": "hold complete",
+      "phase_entry": {
+        "SETTLE": 0.0,
+        "CLOSE": 0.5000000000000003,
+        "PRELOAD": 0.9250000000000007,
+        "LIFT": 1.3249999999999649,
+        "HOLD": 2.8259999999998,
+        "DONE": 4.825999999999946
+      },
+      "u_peak": 0.8095394091531137,
+      "u_pred": 0.4844816899209225,
+      "slip_hold_end": 0.0008416461969122611
+    }
+  ]
+}
