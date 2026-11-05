@@ -23,7 +23,7 @@ Version: `0.1.0`
 
 Current verification:
 
-- 16/16 application regression tests pass;
+- the pytest regression suite covers the controller, evaluation, and CLI;
 - 20/20 default robustness seeds pass;
 - the nominal grasp reaches `DONE` and lifts approximately 0.15 m;
 - the nominal CLI run satisfies all force, penetration, slip, disturbance-buffer, and finite-state criteria;
@@ -53,13 +53,19 @@ The package is under `src/` so tests and scripts cannot accidentally import an u
 
 ## Environment and installation
 
-The existing Conda environment can be reused:
+Create a dedicated Conda environment and install the project in editable mode:
 
 ```bash
-conda activate mujoco
+conda create -n graspforge python=3.11 pip
+conda activate graspforge
 cd graspforge
-python -m pip install -e .
+python -m pip install -e ".[dev]"
 ```
+
+The project pins MuJoCo 3.11.0, the version verified with the regression suite.
+The `dev` extra installs pytest and Ruff for development.
+
+For subsequent sessions, activate the existing environment with `conda activate graspforge`.
 
 Confirm the application and compiled model:
 
@@ -101,15 +107,21 @@ Run a smaller development benchmark:
 graspforge benchmark --trials 5 --min-successes 5 --output artifacts/runs/smoke
 ```
 
-Commands return a nonzero exit code when their success requirement is not met, which makes them suitable for CI or experiment automation.
+Commands return a nonzero exit code when their success requirement is not met, which makes them suitable for CI or experiment automation. An explicit `--min-successes` greater than `--trials` is rejected; when omitted, the default is 18 successes or all trials if fewer than 18 are run.
+
+By default each command creates a uniquely named directory under `artifacts/runs/nominal/` or `artifacts/runs/benchmark/`. An explicit output directory is also supported, but existing result files are never overwritten.
 
 ## Tests
 
-After the editable installation:
+After installing the `dev` extra:
 
 ```bash
-python tests/test_graspforge.py
+python -m pytest -q
+python -m ruff check .
+python -m ruff format --check .
 ```
+
+For a quicker run without the longer robustness test, use `python -m pytest -q -m "not slow"`.
 
 The suite verifies model wiring, contact-frame mathematics, touch/contact agreement, legal state transitions, anti-windup, disturbance clearing, row alignment, deterministic replay, failure detection, and the multi-seed robustness threshold.
 
@@ -138,6 +150,8 @@ Preserve these rules when extending the application:
 9. Do not tune controller parameters per trial when reporting a robustness result.
 
 ## Data products
+
+`manifest.json` records the run type, UTC creation time, model and source SHA-256 hashes, software versions, controller settings, success criteria, and run parameters. Benchmark sampling ranges and per-trial values are recorded in the metrics file.
 
 `grasp_episode.npz` contains aligned time-series arrays, phase and actuator name tables, column documentation, criteria values, and the terminal reason. It is compressed and pickle-free.
 

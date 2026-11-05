@@ -9,7 +9,7 @@ description = "Contact-rich parallel-gripper experiments and evaluation in MuJoC
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
-  "mujoco>=3.1",
+  "mujoco==3.11.0",
   "numpy>=1.26",
   "matplotlib>=3.8",
 ]
@@ -27,3 +27,16 @@ where = ["src"]
 [tool.setuptools.package-data]
 graspforge = ["assets/*.xml"]
 
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10", "ruff>=0.11,<1"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["slow: longer simulation and robustness tests"]
+
+[tool.ruff]
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E9", "F63", "F7", "F82"]

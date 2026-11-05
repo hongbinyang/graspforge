@@ -1,0 +1,24 @@
+name: CI
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ['3.11', '3.12']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: python -m pip install -e '.[dev]'
+      - run: python -m ruff check .
+      - run: python -m ruff format --check .
+      - run: python -m pytest -q
+      - run: graspforge inspect
+      - run: python -m pip wheel --no-deps --wheel-dir dist .
+      - name: Verify model is packaged
+        run: python -c "import glob, zipfile; z = zipfile.ZipFile(glob.glob('dist/*.whl')[0]); assert 'graspforge/assets/gripper.xml' in z.namelist()"
