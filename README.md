@@ -14,8 +14,9 @@ The current release provides a complete vertical grasp pipeline:
 - PI fingertip-force control, minimum-jerk lift motion, actuator clipping, and anti-windup;
 - controlled external disturbances through `xfrc_applied`;
 - deterministic seeded trials over pose, friction, and disturbance variation;
-- success evaluation, replayable NPZ logs, strict JSON metrics, plots, and rendering;
-- a standalone deterministic regression suite.
+- success evaluation, replayable NPZ logs, strict JSON metrics, plots, and video rendering;
+- managed video and experiment artifact lifecycles;
+- a deterministic pytest regression suite.
 
 ## Status
 
@@ -43,9 +44,13 @@ graspforge/
 │   ├── contacts.py          # model indexing and contact-force analysis
 │   ├── controller.py        # observations, state machine, control, rollout
 │   ├── evaluation.py        # criteria, trials, persistence, diagnostics
+│   ├── scenarios.py         # reproducible physical inspection scenarios
+│   ├── video.py             # replay saved episodes as video
+│   ├── video_library.py     # manage scenario videos
+│   ├── artifacts.py         # list and safely clean experiment runs
 │   ├── cli.py               # application commands
 │   └── __main__.py
-├── tests/test_graspforge.py # standalone deterministic regression suite
+├── tests/                   # pytest regression and application tests
 └── artifacts/reference/     # verified reference outputs
 ```
 
@@ -111,6 +116,67 @@ Commands return a nonzero exit code when their success requirement is not met, w
 
 By default each command creates a uniquely named directory under `artifacts/runs/nominal/` or `artifacts/runs/benchmark/`. An explicit output directory is also supported, but existing result files are never overwritten.
 
+## Physical scenarios and video replay
+
+Install the optional video encoder support:
+
+```bash
+python -m pip install -e ".[video]"
+```
+
+Generate and manage the standard video set with:
+
+```bash
+graspforge videos generate
+graspforge videos list
+graspforge videos clean
+```
+
+`generate` runs the nominal, overload, low-friction, disturbance, misaligned, missing-object, seeded, and squeeze-and-release scenarios. Videos and metadata are stored under `artifacts/runs/videos/`. Repeat the command to resume an interrupted run, keep up-to-date videos, and refresh videos when code, model, software, or rendering settings change. `clean` removes the managed videos and their metadata; unrelated files are left alone.
+
+To generate only selected cases, or use a separate library directory:
+
+```bash
+graspforge videos generate --case nominal --case overload
+graspforge videos generate --directory artifacts/runs/my-videos --fps 24
+graspforge videos clean --directory artifacts/runs/my-videos
+```
+
+The cases are `nominal`, `overload`, `friction`, `disturbance`, `misaligned`, `missing`, `seeded`, and `squeeze-release`. Scenario videos use default settings. For customized experiments and saved episode logs, use `graspforge scenario`, for example:
+
+```bash
+graspforge scenario friction --friction 0.15
+graspforge scenario disturbance --force 15
+graspforge scenario misaligned --offset 0.015 --yaw 5
+graspforge scenario seeded --seed 3
+```
+
+Friction sets the cube's sliding friction, force sets the world +Y push in newtons, and misalignment uses metres and degrees. Squeeze-and-release operates on a resting cube; it is not a pick-and-place task. Expected grasp failures are successful scenario executions; inspect the report for the outcome.
+
+The library reconstructs recorded states without resimulating during rendering. Overlays show time, phase, touch forces, slip, and the push window. A working MuJoCo OpenGL context is required; headless machines need a suitable configured rendering backend. For a saved episode, `graspforge video PATH_TO_EPISODE` remains available. Numerical criteria remain the source of truth for evaluating experiments.
+
+## Artifact lifecycle
+
+List experiment runs, including their type, creation time, size, completion and protection status:
+
+```bash
+graspforge artifacts list
+graspforge artifacts list --kind scenario
+```
+
+Cleanup previews selected runs by default. Use `--apply` to delete the same selection:
+
+```bash
+graspforge artifacts clean --older-than 30d --keep 5
+graspforge artifacts clean --older-than 30d --keep 5 --apply
+```
+
+`--keep` preserves the newest matching runs before the age filter is applied. Use `--kind nominal`, `--kind benchmark`, or `--kind scenario` to narrow the selection. With no filters, cleanup selects all recognized runs under `artifacts/runs/`; without `--apply` this only previews them. To include a custom output directory, explicitly pass `--path PATH` (repeatable) to `list` or `clean`. Only manifest-backed run directories are managed. Files such as build products and Python caches are outside this command's scope.
+
+To protect a run, create an empty `.graspforge-protected` file inside it. Cleanup reports an error and deletes none of the selected runs if any selected run has that marker, read-only or immutable files, or unrecognized contents. Reference artifacts under `artifacts/reference/` are always protected. Remove the marker or change permissions only when you intend to allow cleanup. An operating-system error during deletion can still interrupt a cleanup after earlier files were removed; the command reports that situation.
+
+Managed videos have a separate lifecycle: `graspforge videos list` and `graspforge videos clean`. Video cleanup likewise reports protected files rather than silently skipping them. To protect an entire video library, put a `.graspforge-protected` file in that library directory. Unrelated files are preserved.
+
 ## Tests
 
 After installing the `dev` extra:
@@ -123,7 +189,7 @@ python -m ruff format --check .
 
 For a quicker run without the longer robustness test, use `python -m pytest -q -m "not slow"`.
 
-The suite verifies model wiring, contact-frame mathematics, touch/contact agreement, legal state transitions, anti-windup, disturbance clearing, row alignment, deterministic replay, failure detection, and the multi-seed robustness threshold.
+The suite verifies model wiring, contact-frame mathematics, touch/contact agreement, controller behavior, deterministic replay, failure detection, robustness, scenario recording, video encoding, and artifact protection. Video encoding tests use a simulated renderer; rendering a real scene requires a working graphics context.
 
 ## Runtime architecture
 
@@ -153,7 +219,7 @@ Preserve these rules when extending the application:
 
 `manifest.json` records the run type, UTC creation time, model and source SHA-256 hashes, software versions, controller settings, success criteria, and run parameters. Benchmark sampling ranges and per-trial values are recorded in the metrics file.
 
-`grasp_episode.npz` contains aligned time-series arrays, phase and actuator name tables, column documentation, criteria values, and the terminal reason. It is compressed and pickle-free.
+`grasp_episode.npz` contains aligned time-series arrays and the terminal reason. Grasp episodes also include phase and actuator name tables, column documentation, and criteria values. The squeeze-and-release scenario records a smaller set of replay fields. All episode files are compressed and pickle-free.
 
 `grasp_metrics.json` contains MuJoCo version information, sampling ranges, controller configuration, success criteria, and one record per seeded trial. Non-finite values are converted to JSON `null`.
 
@@ -169,8 +235,8 @@ The next phase should turn GraspForge from a single-scene experiment into a reus
 2. Replace the single cube-specific setup with task and object interfaces.
 3. Add controller protocols so force PI, impedance control, and model-based policies can be selected at runtime.
 4. Add batch execution with process isolation and aggregate reports.
-5. Add replay and comparison commands for saved NPZ episodes.
-6. Add video rendering and an interactive inspection UI.
-7. Add CI across supported Python and MuJoCo versions.
+5. Add episode comparison commands for saved NPZ episodes.
+6. Add an interactive inspection UI.
+7. Extend CI coverage to additional supported Python and MuJoCo versions.
 
 Avoid adding concurrency before the experiment configuration and artifact identity are stable; otherwise it becomes difficult to prove which inputs produced a result.

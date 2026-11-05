@@ -30,6 +30,7 @@ graspforge = ["assets/*.xml"]
 
 [project.optional-dependencies]
 dev = ["pytest>=8,<10", "ruff>=0.11,<1"]
+video = ["imageio-ffmpeg>=0.5,<1", "pillow>=9"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

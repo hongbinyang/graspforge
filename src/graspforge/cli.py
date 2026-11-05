@@ -15,6 +15,13 @@ from uuid import uuid4
 import mujoco
 import numpy as np
 
+from graspforge.artifacts import (
+    KINDS,
+    clean_runs,
+    discover_runs,
+    list_runs,
+    select_runs,
+)
 from graspforge.contacts import MODEL_PATH, build_index, load_model
 from graspforge.controller import (
     NOMINAL_DISTURBANCE,
@@ -23,6 +30,9 @@ from graspforge.controller import (
     print_timeline,
     run_grasp,
 )
+from graspforge.scenarios import SCENARIOS, run_scenario
+from graspforge.video import render_video
+from graspforge.video_library import clean_videos, generate_videos, list_videos
 from graspforge.evaluation import (
     MIN_SUCCESSES,
     SuccessCriteria,
@@ -173,6 +183,93 @@ def run_benchmark(args: argparse.Namespace) -> int:
     return 0 if successes >= required else 1
 
 
+def run_physical_scenario(args: argparse.Namespace) -> int:
+    log, report, parameters = run_scenario(
+        args.case,
+        friction=args.friction,
+        force=args.force,
+        offset=args.offset,
+        yaw=args.yaw,
+        seed=args.seed,
+    )
+    output = _prepare_output(
+        args.output, "scenarios", ("grasp_episode.npz", "manifest.json")
+    )
+    config = ControllerConfig()
+    criteria = SuccessCriteria()
+    _write_manifest(output, "scenario", config, criteria, **parameters)
+    episode_path = output / "grasp_episode.npz"
+    if report is None:
+        np.savez_compressed(episode_path, **log)
+        print("Squeeze and release complete")
+    else:
+        save_episode(episode_path, log, report)
+        print_timeline(log)
+        print_report(report)
+    print(f"episode: {episode_path}")
+    # Failure scenarios are successful experiments, even when the grasp fails.
+    return 0
+
+
+def replay_video(args: argparse.Namespace) -> int:
+    if not args.episode.is_file():
+        raise SystemExit(
+            f"Episode file not found: {args.episode}\n"
+            "Run 'graspforge scenario nominal' first, then use the episode path it prints."
+        )
+    output = args.output or args.episode.with_name("grasp_video.mp4")
+    render_video(
+        args.episode,
+        output,
+        fps=args.fps,
+        camera=args.camera,
+        width=args.width,
+        height=args.height,
+    )
+    print(f"video: {output}")
+    return 0
+
+
+def manage_videos(args: argparse.Namespace) -> int:
+    if args.action == "clean":
+        try:
+            clean_videos(args.directory)
+        except OSError as exc:
+            raise SystemExit(str(exc)) from exc
+    elif args.action == "list":
+        list_videos(args.directory)
+    else:
+        try:
+            generate_videos(
+                args.directory, args.case or SCENARIOS, fps=args.fps, camera=args.camera
+            )
+        except RuntimeError as exc:
+            raise SystemExit(str(exc)) from exc
+    return 0
+
+
+def manage_artifacts(args: argparse.Namespace) -> int:
+    try:
+        runs = discover_runs(
+            Path.cwd() / "artifacts" / "runs",
+            args.path or (),
+            strict=args.action == "clean",
+        )
+        runs = select_runs(
+            runs,
+            kind=args.kind,
+            older_than=getattr(args, "older_than", None),
+            keep=getattr(args, "keep", 0),
+        )
+        if args.action == "list":
+            list_runs(runs)
+        else:
+            clean_runs(runs, apply=args.apply)
+    except (ValueError, OSError) as exc:
+        raise SystemExit(str(exc)) from exc
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="graspforge",
@@ -197,6 +294,96 @@ def build_parser() -> argparse.ArgumentParser:
     benchmark.add_argument("--min-successes", type=int, default=None)
     benchmark.add_argument("--output", type=_output_dir, default=None)
     benchmark.set_defaults(handler=run_benchmark)
+    scenario = commands.add_parser(
+        "scenario", help="run a physical inspection scenario"
+    )
+    scenario.add_argument("case", choices=SCENARIOS)
+    scenario.add_argument(
+        "--friction",
+        type=float,
+        default=0.15,
+        help="cube friction for friction scenario",
+    )
+    scenario.add_argument(
+        "--force",
+        type=float,
+        default=15.0,
+        help="push magnitude in N for disturbance scenario",
+    )
+    scenario.add_argument(
+        "--offset",
+        type=float,
+        default=0.015,
+        help="cube x offset in m for misaligned scenario",
+    )
+    scenario.add_argument(
+        "--yaw",
+        type=float,
+        default=5.0,
+        help="cube yaw in degrees for misaligned scenario",
+    )
+    scenario.add_argument(
+        "--seed", type=int, default=0, help="seed for seeded scenario"
+    )
+    scenario.add_argument("--output", type=_output_dir, default=None)
+    scenario.set_defaults(handler=run_physical_scenario)
+
+    replay = commands.add_parser("video", help="render an existing episode to MP4")
+    replay.add_argument("episode", type=_output_dir)
+    replay.add_argument("--output", type=_output_dir, default=None)
+    replay.add_argument("--fps", type=int, default=30)
+    replay.add_argument("--camera", default="overview")
+    replay.add_argument("--width", type=int, default=640)
+    replay.add_argument("--height", type=int, default=480)
+    replay.set_defaults(handler=replay_video)
+    videos = commands.add_parser(
+        "videos", help="generate and manage a scenario video library"
+    )
+    video_actions = videos.add_subparsers(dest="action", required=True)
+    for action in ("generate", "list", "clean"):
+        sub = video_actions.add_parser(action)
+        sub.add_argument(
+            "--directory",
+            type=_output_dir,
+            default=_output_dir("artifacts/runs/videos"),
+        )
+        sub.set_defaults(handler=manage_videos)
+        if action == "generate":
+            sub.add_argument(
+                "--case",
+                action="append",
+                choices=SCENARIOS,
+                help="generate only this scenario; repeat to select several",
+            )
+            sub.add_argument("--fps", type=int, default=30)
+            sub.add_argument("--camera", default="overview")
+    artifacts = commands.add_parser("artifacts", help="list and clean experiment runs")
+    artifact_actions = artifacts.add_subparsers(dest="action", required=True)
+    for action in ("list", "clean"):
+        sub = artifact_actions.add_parser(action)
+        sub.add_argument(
+            "--path",
+            action="append",
+            type=lambda p: Path(p).expanduser().absolute(),
+            help="explicit run directory, including a custom output location; repeatable",
+        )
+        sub.add_argument("--kind", choices=KINDS)
+        sub.set_defaults(handler=manage_artifacts)
+        if action == "clean":
+            sub.add_argument(
+                "--older-than", help="only runs older than N days, e.g. 30d"
+            )
+            sub.add_argument(
+                "--keep",
+                type=int,
+                default=0,
+                help="preserve this many newest matching runs",
+            )
+            sub.add_argument(
+                "--apply",
+                action="store_true",
+                help="delete the selected runs; default is preview",
+            )
     return parser
 
 
