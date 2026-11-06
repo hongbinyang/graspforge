@@ -2,6 +2,10 @@
 
 GraspForge is a standalone MuJoCo application for developing, running, and evaluating contact-rich parallel-gripper experiments.
 
+## Showcase
+
+[Watch the nominal grasp](docs/nominal.mp4): the gripper closes around the cube, lifts it, and holds it through a disturbance.
+
 ## Why “GraspForge”?
 
 **GraspForge** combines grasp manipulation with a forge—a place to build and refine robust controllers through repeatable simulation.
@@ -226,17 +230,3 @@ Preserve these rules when extending the application:
 `grasp_diagnostics.png` plots height, touch force, contact normal force, finger positions, applied controls, slip, phase boundaries, and the disturbance window.
 
 `grasp_final.png` is optional because rendering requires a working OpenGL context.
-
-## Extension direction
-
-The next phase should turn GraspForge from a single-scene experiment into a reusable manipulation platform. A practical order is:
-
-1. Introduce an `ExperimentConfig` with YAML or TOML loading and validated controller, scene, trial, and output sections.
-2. Replace the single cube-specific setup with task and object interfaces.
-3. Add controller protocols so force PI, impedance control, and model-based policies can be selected at runtime.
-4. Add batch execution with process isolation and aggregate reports.
-5. Add episode comparison commands for saved NPZ episodes.
-6. Add an interactive inspection UI.
-7. Extend CI coverage to additional supported Python and MuJoCo versions.
-
-Avoid adding concurrency before the experiment configuration and artifact identity are stable; otherwise it becomes difficult to prove which inputs produced a result.
