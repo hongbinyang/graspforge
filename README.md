@@ -4,7 +4,10 @@ GraspForge is a standalone MuJoCo application for developing, running, and evalu
 
 ## Showcase
 
-[Watch the nominal grasp](docs/nominal.mp4): the gripper closes around the cube, lifts it, and holds it through a disturbance.
+The gripper closes around the cube, lifts it, and holds it through a disturbance.
+
+![Animated nominal grasp](docs/nominal.gif)
+
 
 ## Why “GraspForge”?
 
